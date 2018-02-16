@@ -30,6 +30,9 @@ public class QuizFrame extends JFrame
     private JButton noButton;
     private JButton doneButton;
     private int questionsAnswered = 0;
+    private int numRight = 0;
+    private int numWrong = 0;
+    private JLabel quizSummary;
 
 
     //*******************************************
@@ -97,6 +100,9 @@ public class QuizFrame extends JFrame
         noButton.setVisible(false);
         noButton.addActionListener(new NoButtonListener());
 
+        quizSummary = new JLabel();
+        quizSummary.setVisible(false);
+
         add(namePrompt);
         add(nameBox);
         add(greeting);
@@ -109,6 +115,7 @@ public class QuizFrame extends JFrame
         add(answerAnotherQuestion);
         add(yesButton);
         add(noButton);
+        add(quizSummary);
 
 
     }
@@ -148,8 +155,6 @@ public class QuizFrame extends JFrame
         }
     }
 
-
-
     //****************************************************
     //done button listener
     public class DoneButtonListener implements ActionListener
@@ -163,6 +168,8 @@ public class QuizFrame extends JFrame
                         JOptionPane.INFORMATION_MESSAGE);
 
                 questionsAnswered++;
+                numRight ++;
+                quiz.setNumRight(numRight);
 
             }
 
@@ -196,17 +203,15 @@ public class QuizFrame extends JFrame
             greeting.setVisible(false);
             startButton.setVisible(false);
             continueGame = true;
-
             //set questionsAnswered in quiz class
             quiz.setTotalQuestions(questionsAnswered);
             // get new question
             question.setText(quiz.getQuestion());
-            // make yes and no buttons invisible
-           yesButton.setVisible(false);
-           noButton.setVisible(false);
-           playAgain.setVisible(false);
-           questionPrompt.setText("");
-           
+            yesButton.setVisible(false);
+            noButton.setVisible(false);
+            playAgain.setVisible(false);
+            questionPrompt.setText("");
+
         }
     }
 
@@ -216,13 +221,15 @@ public class QuizFrame extends JFrame
     {
         public void actionPerformed(ActionEvent e)
         {
+            quiz.calculateNumericalGrade();
+            quiz.calculateLetterGrade();
+            quizSummary.setText("NAME:  " + nameBox.getText());
+            quizSummary.setVisible(true);
             noButton.isEnabled();
-            JOptionPane.showMessageDialog(null, "The No button was clicked\n\n",
-                    "US State Capitals Quiz", JOptionPane.INFORMATION_MESSAGE);
             continueGame = false;
+
         }
     }
-
 
     public static void main(String[] args)
     {
