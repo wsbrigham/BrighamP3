@@ -110,6 +110,7 @@ public class QuizFrame extends JFrame
         add(yesButton);
         add(noButton);
 
+
     }
 
     //****************************************************
@@ -157,8 +158,9 @@ public class QuizFrame extends JFrame
         {
             if(questionPrompt.getText().equalsIgnoreCase(quiz.getAnswer())) {
 
-                JOptionPane.showMessageDialog(null, "Correct!\n\nQUESTION:   " + quiz.getQuestion()
-                        + "\nANSWER:      " + quiz.getAnswer(),"US State Capitals Quiz", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Correct!\n\nQUESTION:   "
+                        + quiz.getQuestion() + "\nANSWER:      " + quiz.getAnswer(),"US State Capitals Quiz",
+                        JOptionPane.INFORMATION_MESSAGE);
 
                 questionsAnswered++;
 
@@ -189,14 +191,22 @@ public class QuizFrame extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             yesButton.isEnabled();
-            JOptionPane.showMessageDialog(null, "The Yes button was clicked\n\n",
-                    "US State Capitals Quiz", JOptionPane.INFORMATION_MESSAGE);
             nameBox.setVisible(false);
             namePrompt.setVisible(false);
             greeting.setVisible(false);
             startButton.setVisible(false);
             continueGame = true;
 
+            //set questionsAnswered in quiz class
+            quiz.setTotalQuestions(questionsAnswered);
+            // get new question
+            question.setText(quiz.getQuestion());
+            // make yes and no buttons invisible
+           yesButton.setVisible(false);
+           noButton.setVisible(false);
+           playAgain.setVisible(false);
+           questionPrompt.setText("");
+           
         }
     }
 
