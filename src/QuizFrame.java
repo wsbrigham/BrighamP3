@@ -29,6 +29,7 @@ public class QuizFrame extends JFrame
     private JButton yesButton;
     private JButton noButton;
     private JButton doneButton;
+    private int questionsAnswered = 0;
 
 
     //*******************************************
@@ -66,7 +67,7 @@ public class QuizFrame extends JFrame
         startButton.addActionListener(new StartGameListener());
 
 
-        question = new JLabel("What's the Capital of " + quiz.getQuestion());
+        question = new JLabel(quiz.getQuestion());
         question.setVisible(false);
 
         questionPrompt = new JTextField(15);
@@ -156,17 +157,20 @@ public class QuizFrame extends JFrame
         {
             if(questionPrompt.getText().equalsIgnoreCase(quiz.getAnswer())) {
 
-                JOptionPane.showMessageDialog(null, "Correct!\n\nThe capital of " + quiz.getQuestion() + " is "
-                        + quiz.getAnswer() + "\n\nClick OK to continue.\n\n",
-                        "US State Capitals Quiz", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Correct!\n\nQUESTION:   " + quiz.getQuestion()
+                        + "\nANSWER:      " + quiz.getAnswer(),"US State Capitals Quiz", JOptionPane.INFORMATION_MESSAGE);
+
+                questionsAnswered++;
 
             }
 
             if(!questionPrompt.getText().equalsIgnoreCase(quiz.getAnswer())) {
 
-                JOptionPane.showMessageDialog(null, "Incorrect.\n\nThe capital of " + quiz.getQuestion() + " is " + quiz.getAnswer()
-                        + "\n\nClick OK to continue.\n\n",
+                JOptionPane.showMessageDialog(null, "Incorrect.\n\nQUESTION:  "
+                                + quiz.getQuestion() + "\nANSWER:     " + quiz.getAnswer(),
                         "US State Capitals Quiz", JOptionPane.ERROR_MESSAGE);
+
+                questionsAnswered++;
 
             }
 
