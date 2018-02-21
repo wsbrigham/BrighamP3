@@ -114,6 +114,7 @@ public class Quiz
     public void calculateNumericalGrade () {
         //calculate the numerical grade
         numericalGrade = ((double) numRight / (double) totalQuestions) * 100;
+        //numericalGrade = ((double) numRight / (double) totalQuestions) * 100;
     }
 
     //******************************************************************************************************************

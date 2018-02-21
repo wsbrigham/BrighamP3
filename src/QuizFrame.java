@@ -168,6 +168,7 @@ public class QuizFrame extends JFrame
                         JOptionPane.INFORMATION_MESSAGE);
 
                 questionsAnswered++;
+               // quiz.setTotalQuestions(questionsAnswered);
                 numRight ++;
                 quiz.setNumRight(numRight);
 
@@ -180,6 +181,7 @@ public class QuizFrame extends JFrame
                         "US State Capitals Quiz", JOptionPane.ERROR_MESSAGE);
 
                 questionsAnswered++;
+                quiz.setTotalQuestions(questionsAnswered);
 
             }
 
@@ -223,7 +225,7 @@ public class QuizFrame extends JFrame
         {
             quiz.calculateNumericalGrade();
             quiz.calculateLetterGrade();
-            quizSummary.setText("NAME:  " + nameBox.getText());
+            quizSummary.setText("NAME:  " + nameBox.getText() + "    " + quiz.getLetterGrade());
             quizSummary.setVisible(true);
             noButton.isEnabled();
             continueGame = false;
