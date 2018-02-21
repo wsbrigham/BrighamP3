@@ -225,7 +225,7 @@ public class QuizFrame extends JFrame
         {
             quiz.calculateNumericalGrade();
             quiz.calculateLetterGrade();
-            quizSummary.setText("NAME:  " + nameBox.getText() + "    " + quiz.getLetterGrade());
+            quizSummary.setText("NAME:  " + nameBox.getText() + "    LETTER GRADE:  " + quiz.getLetterGrade() + "      NUMERICAL GRADE:  " + Quiz.getNumericalGrade() + "%");
             quizSummary.setVisible(true);
             noButton.isEnabled();
             continueGame = false;
