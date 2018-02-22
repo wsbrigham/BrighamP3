@@ -2,11 +2,8 @@
  *              NAME: William Brigham
  *             EMAIL: wbrigham@cnm.edu
  *    PROGRAM TITLE: State Capitals Quiz (Quiz.java)
- * CLASS OBJECTIVE: To handle the calculating portion of the quiz
+ * CLASS OBJECTIVE: This class handles the questions, answers, and calculating portion of the quiz
  **********************************************************************************************************************/
-
-import java.text.DecimalFormat;
-import java.util.Random;
 
 public class Quiz
 {

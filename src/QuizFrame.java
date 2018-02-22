@@ -1,14 +1,11 @@
 /***********************************************************************************************************************
  *              NAME: William Brigham
  *             EMAIL: wbrigham@cnm.edu
- *    PROGRAM TITLE: State Capitals Quiz (MainP2.java)
- * CLASS OBJECTIVE: To drive the Quiz and QuizUI classes
+ *    PROGRAM TITLE: State Capitals Quiz (QuizFrame.java)
+ * CLASS OBJECTIVE: This class presents the UI to the quiz taker.
  **********************************************************************************************************************/
 
-
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.xml.stream.events.StartDocument;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
@@ -16,33 +13,28 @@ import java.text.DecimalFormat;
 public class QuizFrame extends JFrame
 {
     private Quiz quiz = new Quiz();
-    //private static final int WIDTH = 700;
-   // private static final int HEIGHT = 700;
-    private JTextField nameBox;
-    private JTextField questionPrompt;
-    private JLabel greeting;
-    private JTextField answerAnotherQuestion;
-    private JLabel question;
-    private JButton startButton;
-    private JLabel namePrompt;
-    private JLabel playAgain;
-    private boolean continueGame;
-    private JButton yesButton;
-    private JButton noButton;
-    private JButton doneButton;
-    private int questionsAnswered = 0;
-    private int numRight = 0;
-    private int numWrong = 0;
-    private JLabel quizSummary;
-    private JLabel quizDetail;
-    private DecimalFormat formatter = new DecimalFormat("#.00");
+    private JTextField nameBox;                                          //asks player for their name
+    private JTextField questionPrompt;                                   //captures the player's answer
+    private JLabel greeting;                                             //player greeting message
+    private JLabel question;                                             //displays a quiz question
+    private JButton startButton;                                         //button to start the quiz
+    private JLabel namePrompt;                                           //captures the player's name
+    private JLabel playAgain;                                            //asks the user if they want to play again
+    private boolean continueGame;                                        //track if user want to continue quiz
+    private JButton yesButton;                                           //button if user want to continue quiz
+    private JButton noButton;                                            //button if user wants to stop quiz
+    private JButton doneButton;                                          //done button when answer is to be submitted
+    private int questionsAnswered = 0;                                   //counts the number of answered questions
+    private int numRight = 0;                                            //counts the number of correct answers
+    private JLabel quizSummary;                                          //displays quiz summary
+    private JLabel quizDetail;                                           //displays detailed quiz results
+    private DecimalFormat formatter = new DecimalFormat("#.00");  //decimal formatter
 
 
     //*******************************************
     //QuizFrame Constructor
 
     public QuizFrame(){
-
 
         setTitle("US State Capitals Quiz");
         setSize(WIDTH, HEIGHT);
@@ -51,7 +43,6 @@ public class QuizFrame extends JFrame
         initComponents();
         setVisible(true);
         getContentPane().setBackground(Color.LIGHT_GRAY);
-
     }
 
     //*******************************************
@@ -59,12 +50,36 @@ public class QuizFrame extends JFrame
 
     private void initComponents()
     {
+        //display label asking user for their name
         namePrompt = new JLabel("What's Your Name?");
+
+        //display a text box for the user to input their name
         nameBox = new JTextField(15);
-        nameBox.addActionListener(new NameListener());
+
+        //add action listener for the nameBox
+        nameBox.addActionListener((new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                namePrompt.setVisible(false);
+                nameBox.setVisible(false);
+                greeting.setVisible(true);
+                startButton.setVisible(true);
+                String message; // the personalized greeting
+                message = "<html>Welcome to the US State Capitals Quiz, " + nameBox.getText() + "!<br><br>Click the Start"
+                        + " button to begin the quiz.</html>";
+                //nameBox.setText("");
+                greeting.setText(message);
+            }
+        }));
+
+        //**************************************************************************************************************
+        // a greeting to the user using their name
 
         greeting = new JLabel();
         greeting.setVisible(false);
+
+        //**************************************************************************************************************
+        //start button for displaying the first quiz question/beginning the quiz
 
         startButton = new JButton("Start");
         startButton.setBackground(Color.BLUE);
@@ -73,11 +88,20 @@ public class QuizFrame extends JFrame
         startButton.addActionListener(new StartGameListener());
 
 
+        //**************************************************************************************************************
+        //field to display the quiz questions
+
         question = new JLabel(quiz.getQuestion());
         question.setVisible(false);
 
+        //**************************************************************************************************************
+        //field to capture the users's answer
+
         questionPrompt = new JTextField(15);
         questionPrompt.setVisible(false);
+
+        //**************************************************************************************************************
+        //done button the submits the users's answer to the Quiz.class
 
         doneButton = new JButton("Done");
         doneButton.setBackground(Color.BLUE);
@@ -85,11 +109,14 @@ public class QuizFrame extends JFrame
         doneButton.setVisible(false);
         doneButton.addActionListener(new DoneButtonListener());
 
+        //**************************************************************************************************************
+        //field that asks the user if they would like to answer another question
+
         playAgain = new JLabel("Would You Like to Answer Another Question?");
         playAgain.setVisible(false);
 
-        answerAnotherQuestion = new JTextField(15);
-        answerAnotherQuestion.setVisible(false);
+        //**************************************************************************************************************
+        //button for the user to click if they want to answer another question
 
         yesButton = new JButton("Yes");
         yesButton.setBackground(Color.BLUE);
@@ -97,18 +124,29 @@ public class QuizFrame extends JFrame
         yesButton.setVisible(false);
         yesButton.addActionListener(new YesButtonListener());
 
+        //**************************************************************************************************************
+        //button for the user to click if they don't want to answer more questions
+
         noButton = new JButton("No");
         noButton.setBackground(Color.BLUE);
         noButton.setForeground(Color.WHITE);
         noButton.setVisible(false);
         noButton.addActionListener(new NoButtonListener());
 
+        //**************************************************************************************************************
+        //displays a summary of the quiz results(name, letter grade, and numeric grade)
+
         quizSummary = new JLabel();
         quizSummary.setVisible(false);
+
+        //**************************************************************************************************************
+        //display detail quiz results(questions answered, correct answers, incorrect errors
 
         quizDetail = new JLabel();
         quizDetail.setVisible(false);
 
+        //**************************************************************************************************************
+        //add objects to the frame
 
         add(namePrompt);
         add(nameBox);
@@ -119,41 +157,19 @@ public class QuizFrame extends JFrame
         add(questionPrompt);
         add(doneButton);
         add(playAgain);
-        add(answerAnotherQuestion);
         add(yesButton);
         add(noButton);
         add(quizSummary);
         add(quizDetail);
-
-
     }
 
-    //****************************************************
-    // player's name listener
+    //******************************************************************************************************************
+    //startButton listener
 
-    public class NameListener implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            namePrompt.setVisible(false);
-            nameBox.setVisible(false);
-            greeting.setVisible(true);
-            startButton.setVisible(true);
-            String message; // the personalized greeting
-            message = "<html>Welcome to the US State Capitals Quiz, " + nameBox.getText() + "!<br><br>Click the Start"
-            + " button to begin the quiz.</html>";
-            //nameBox.setText("");
-            greeting.setText(message);
-        }
-    }
-
-    //****************************************************
-    //start listener
     public class StartGameListener implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
         {
-
             greeting.setVisible(false);
             question.setVisible(true);
             questionPrompt.setVisible(true);
@@ -163,36 +179,41 @@ public class QuizFrame extends JFrame
         }
     }
 
-    //****************************************************
+    //******************************************************************************************************************
     //done button listener
+
     public class DoneButtonListener implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
         {
+            //if answer is correct, display a JOption pane showing question & answer
             if(questionPrompt.getText().equalsIgnoreCase(quiz.getAnswer())) {
 
                 JOptionPane.showMessageDialog(null, "Correct!\n\nQUESTION:   "
                         + quiz.getQuestion() + "\nANSWER:      " + quiz.getAnswer(),"US State Capitals Quiz",
                         JOptionPane.INFORMATION_MESSAGE);
 
+                //increment the number of questions answered
                 questionsAnswered++;
-               // quiz.setTotalQuestions(questionsAnswered);
+
+               // increment the number of questions correct
                 numRight ++;
                 quiz.setNumRight(numRight);
-
             }
 
+            //if user get the wrong answer, display a JOption pane showing the question and correct answer
             if(!questionPrompt.getText().equalsIgnoreCase(quiz.getAnswer())) {
 
                 JOptionPane.showMessageDialog(null, "Incorrect.\n\nQUESTION:  "
                                 + quiz.getQuestion() + "\nANSWER:     " + quiz.getAnswer(),
                         "US State Capitals Quiz", JOptionPane.ERROR_MESSAGE);
 
+                //increment total questions answered
                 questionsAnswered++;
                 quiz.setTotalQuestions(questionsAnswered);
-
             }
 
+            //display the play again yes/no buttons
             playAgain.setVisible(true);
             yesButton.setVisible(true);
             yesButton.requestFocus();
@@ -200,9 +221,9 @@ public class QuizFrame extends JFrame
         }
     }
 
-
-    //****************************************************
+    //******************************************************************************************************************
     //Play again yes button listener
+
     public class YesButtonListener implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
@@ -213,8 +234,10 @@ public class QuizFrame extends JFrame
             greeting.setVisible(false);
             startButton.setVisible(false);
             continueGame = true;
+
             //set questionsAnswered in quiz class
             quiz.setTotalQuestions(questionsAnswered);
+
             // get new question
             question.setText(quiz.getQuestion());
             yesButton.setVisible(false);
@@ -225,16 +248,20 @@ public class QuizFrame extends JFrame
         }
     }
 
-    //****************************************************
+    //******************************************************************************************************************
     //Play again no button listener
+
     public class NoButtonListener implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
         {
-
             //set questionsAnswered in quiz class
             quiz.setTotalQuestions(questionsAnswered);
+
+            //calculate numeric grade
             quiz.calculateNumericalGrade();
+
+            //determine letter grade
             quiz.calculateLetterGrade();
             question.setVisible(false);
             questionPrompt.setVisible(false);
@@ -243,19 +270,23 @@ public class QuizFrame extends JFrame
             noButton.setVisible(false);
             doneButton.setVisible(false);
 
+            //display a summary of the quiz(name, numeric grade, and letter grade
             quizSummary.setVisible(true);
             quizSummary.setText("NAME:  " + nameBox.getText() + "    LETTER GRADE:  " + quiz.getLetterGrade() + "      "
                     + "NUMERICAL GRADE:  " + formatter.format(Quiz.getNumericalGrade()) + "%");
 
+            //display detailed quiz results(total questions asked, number correct, and number incorrect
             quizDetail.setVisible(true);
-            quizDetail.setText("CORRECT:  " +  quiz.getNumRight() + "    INCORRECT:  "
-                    + (quiz.getTotalQuestions() - quiz.getNumRight()) + "     TOTAL:  " + quiz.getTotalQuestions());
+            quizDetail.setText("CORRECT:  " +  quiz.getNumRight() + "          INCORRECT:  "
+                    + (quiz.getTotalQuestions() - quiz.getNumRight()) + "           TOTAL:  " + quiz.getTotalQuestions());
             noButton.isEnabled();
             continueGame = false;
-
         }
     }
 
+    //******************************************************************************************************************
+    //instantiate new QuizFrame
+    
     public static void main(String[] args)
     {
         new QuizFrame();
