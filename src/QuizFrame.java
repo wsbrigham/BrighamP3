@@ -33,6 +33,7 @@ public class QuizFrame extends JFrame
     private int numRight = 0;
     private int numWrong = 0;
     private JLabel quizSummary;
+    private JLabel quizDetail;
 
 
     //*******************************************
@@ -103,6 +104,10 @@ public class QuizFrame extends JFrame
         quizSummary = new JLabel();
         quizSummary.setVisible(false);
 
+        quizDetail = new JLabel();
+        quizDetail.setVisible(false);
+
+
         add(namePrompt);
         add(nameBox);
         add(greeting);
@@ -116,6 +121,7 @@ public class QuizFrame extends JFrame
         add(yesButton);
         add(noButton);
         add(quizSummary);
+        add(quizDetail);
 
 
     }
@@ -228,15 +234,18 @@ public class QuizFrame extends JFrame
             quiz.setTotalQuestions(questionsAnswered);
             quiz.calculateNumericalGrade();
             quiz.calculateLetterGrade();
-/*            question.setVisible(false);
+            question.setVisible(false);
             questionPrompt.setVisible(false);
             playAgain.setVisible(false);
             yesButton.setVisible(false);
             noButton.setVisible(false);
-            doneButton.setVisible(false);*/
+            doneButton.setVisible(false);
 
-            quizSummary.setText("NAME:  " + nameBox.getText() + "    LETTER GRADE:  " + quiz.getLetterGrade() + "      NUMERICAL GRADE:  " + Quiz.getNumericalGrade() + "%");
             quizSummary.setVisible(true);
+            quizSummary.setText("NAME:  " + nameBox.getText() + "    LETTER GRADE:  " + quiz.getLetterGrade() + "      NUMERICAL GRADE:  " + Quiz.getNumericalGrade() + "%");
+
+            quizDetail.setVisible(true);
+            quizDetail.setText("CORRECT:  " + numRight + "    INCORRECT:  " + numWrong + "     TOTAL:  " + questionsAnswered);
             noButton.isEnabled();
             continueGame = false;
 
