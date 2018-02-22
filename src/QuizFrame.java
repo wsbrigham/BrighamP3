@@ -244,10 +244,12 @@ public class QuizFrame extends JFrame
             doneButton.setVisible(false);
 
             quizSummary.setVisible(true);
-            quizSummary.setText("NAME:  " + nameBox.getText() + "    LETTER GRADE:  " + quiz.getLetterGrade() + "      NUMERICAL GRADE:  " + formatter.format(Quiz.getNumericalGrade()) + "%");
+            quizSummary.setText("NAME:  " + nameBox.getText() + "    LETTER GRADE:  " + quiz.getLetterGrade() + "      "
+                    + "NUMERICAL GRADE:  " + formatter.format(Quiz.getNumericalGrade()) + "%");
 
             quizDetail.setVisible(true);
-            quizDetail.setText("CORRECT:  " + numRight + "    INCORRECT:  " + numWrong + "     TOTAL:  " + questionsAnswered);
+            quizDetail.setText("CORRECT:  " +  quiz.getNumRight() + "    INCORRECT:  "
+                    + (quiz.getTotalQuestions() - quiz.getNumRight()) + "     TOTAL:  " + quiz.getTotalQuestions());
             noButton.isEnabled();
             continueGame = false;
 

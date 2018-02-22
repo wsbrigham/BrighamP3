@@ -73,6 +73,11 @@ public class Quiz
         return numRight;
     }
 
+    public int getTotalQuestions(){
+
+        return totalQuestions;
+    }
+
     //******************************************************************************************************************
     //method for retrieving the numerical grade for the quiz results
     public static double getNumericalGrade() {
