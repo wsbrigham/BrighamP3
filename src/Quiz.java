@@ -69,6 +69,10 @@ public class Quiz
         shuffle();
     }
 
+    public int getNumRight() {
+        return numRight;
+    }
+
     //******************************************************************************************************************
     //method for retrieving the numerical grade for the quiz results
     public static double getNumericalGrade() {

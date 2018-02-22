@@ -11,6 +11,7 @@ import javax.swing.border.Border;
 import javax.xml.stream.events.StartDocument;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 
 public class QuizFrame extends JFrame
 {
@@ -34,6 +35,7 @@ public class QuizFrame extends JFrame
     private int numWrong = 0;
     private JLabel quizSummary;
     private JLabel quizDetail;
+    private DecimalFormat formatter = new DecimalFormat("#.00");
 
 
     //*******************************************
@@ -242,7 +244,7 @@ public class QuizFrame extends JFrame
             doneButton.setVisible(false);
 
             quizSummary.setVisible(true);
-            quizSummary.setText("NAME:  " + nameBox.getText() + "    LETTER GRADE:  " + quiz.getLetterGrade() + "      NUMERICAL GRADE:  " + Quiz.getNumericalGrade() + "%");
+            quizSummary.setText("NAME:  " + nameBox.getText() + "    LETTER GRADE:  " + quiz.getLetterGrade() + "      NUMERICAL GRADE:  " + formatter.format(Quiz.getNumericalGrade()) + "%");
 
             quizDetail.setVisible(true);
             quizDetail.setText("CORRECT:  " + numRight + "    INCORRECT:  " + numWrong + "     TOTAL:  " + questionsAnswered);
