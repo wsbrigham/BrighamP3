@@ -133,7 +133,7 @@ public class QuizFrame extends JFrame
             startButton.setVisible(true);
             String message; // the personalized greeting
             message = "<html>Welcome to the US State Capitals Quiz, " + nameBox.getText() + "!<br><br>Click the Start"
-            + "button to begin the quiz.</html>";
+            + " button to begin the quiz.</html>";
             //nameBox.setText("");
             greeting.setText(message);
         }
@@ -223,8 +223,18 @@ public class QuizFrame extends JFrame
     {
         public void actionPerformed(ActionEvent e)
         {
+
+            //set questionsAnswered in quiz class
+            quiz.setTotalQuestions(questionsAnswered);
             quiz.calculateNumericalGrade();
             quiz.calculateLetterGrade();
+/*            question.setVisible(false);
+            questionPrompt.setVisible(false);
+            playAgain.setVisible(false);
+            yesButton.setVisible(false);
+            noButton.setVisible(false);
+            doneButton.setVisible(false);*/
+
             quizSummary.setText("NAME:  " + nameBox.getText() + "    LETTER GRADE:  " + quiz.getLetterGrade() + "      NUMERICAL GRADE:  " + Quiz.getNumericalGrade() + "%");
             quizSummary.setVisible(true);
             noButton.isEnabled();
