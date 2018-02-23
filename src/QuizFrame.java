@@ -53,21 +53,27 @@ public class QuizFrame extends JFrame
     {
 
         //display course header
-        header = new JTextArea("Name:  William Brigham\n0Program Title:  US State Capitals Quiz\nProgram Objective:  To give a quiz of US State "
-                + "Capitals and report\n pass/fail status and a grade.");
-        add(header);
+        header = new JTextArea("Name:  William Brigham\nProgram Title:  US State Capitals Quiz\nProgram Objective:  To give a quiz of US State "
+                + "Capitals and report pass/fail status and a grade.");
 
+
+
+        add(header);
 
         //display label asking user for their name
         namePrompt = new JLabel("What's Your Name?");
+        namePrompt.requestFocus();
+
 
         //display a text box for the user to input their name
         nameBox = new JTextField(15);
+        nameBox.requestFocus();
 
         //add action listener for the nameBox
         nameBox.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                header.setVisible(false);
                 namePrompt.setVisible(false);
                 nameBox.setVisible(false);
                 greeting.setVisible(true);
@@ -201,6 +207,9 @@ public class QuizFrame extends JFrame
         public void actionPerformed(ActionEvent e)
         {
 
+            question.setVisible(false);
+            questionPrompt.setVisible(false);
+            doneButton.setVisible(false);
 
             //if answer is correct, display a JOption pane showing question & answer
             if(questionPrompt.getText().equalsIgnoreCase(quiz.getAnswer())) {
@@ -248,9 +257,12 @@ public class QuizFrame extends JFrame
             yesButton.isEnabled();
             nameBox.setVisible(false);
             namePrompt.setVisible(false);
+            doneButton.setVisible(true);
             greeting.setVisible(false);
             startButton.setVisible(false);
             continueGame = true;
+            question.setVisible(true);
+            questionPrompt.setVisible(true);
 
             //set questionsAnswered in quiz class
             quiz.setTotalQuestions(questionsAnswered);

@@ -19,7 +19,7 @@ public class MainP3{
     public MainP3(){
         qFrame = new QuizFrame();
         //qFrame.setTitle(“US State Capitals Quiz”);
-        qFrame.setSize(500,750);
+        qFrame.setSize(550,775);
         qFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         qFrame.setLocationRelativeTo(null);
         qFrame.setVisible(true);
