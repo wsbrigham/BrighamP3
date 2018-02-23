@@ -13,6 +13,7 @@ import java.text.DecimalFormat;
 public class QuizFrame extends JFrame
 {
     private Quiz quiz = new Quiz();
+    private JTextArea header;
     private JTextField nameBox;                                          //asks player for their name
     private JTextField questionPrompt;                                   //captures the player's answer
     private JLabel greeting;                                             //player greeting message
@@ -50,6 +51,13 @@ public class QuizFrame extends JFrame
 
     private void initComponents()
     {
+
+        //display course header
+        header = new JTextArea("Name:  William Brigham\n0Program Title:  US State Capitals Quiz\nProgram Objective:  To give a quiz of US State "
+                + "Capitals and report\n pass/fail status and a grade.");
+        add(header);
+
+
         //display label asking user for their name
         namePrompt = new JLabel("What's Your Name?");
 
@@ -168,14 +176,18 @@ public class QuizFrame extends JFrame
 
     public class StartGameListener implements ActionListener
     {
+        @Override
+
         public void actionPerformed(ActionEvent e)
         {
+
             greeting.setVisible(false);
             question.setVisible(true);
             questionPrompt.setVisible(true);
             questionPrompt.requestFocus();
             doneButton.setVisible(true);
             startButton.setVisible(false);
+            header.setVisible(false);
         }
     }
 
@@ -184,8 +196,12 @@ public class QuizFrame extends JFrame
 
     public class DoneButtonListener implements ActionListener
     {
+        @Override
+
         public void actionPerformed(ActionEvent e)
         {
+
+
             //if answer is correct, display a JOption pane showing question & answer
             if(questionPrompt.getText().equalsIgnoreCase(quiz.getAnswer())) {
 
@@ -226,6 +242,7 @@ public class QuizFrame extends JFrame
 
     public class YesButtonListener implements ActionListener
     {
+        @Override
         public void actionPerformed(ActionEvent e)
         {
             yesButton.isEnabled();
@@ -253,6 +270,7 @@ public class QuizFrame extends JFrame
 
     public class NoButtonListener implements ActionListener
     {
+        @Override
         public void actionPerformed(ActionEvent e)
         {
             //set questionsAnswered in quiz class
@@ -270,23 +288,19 @@ public class QuizFrame extends JFrame
             noButton.setVisible(false);
             doneButton.setVisible(false);
 
-            //display a summary of the quiz(name, numeric grade, and letter grade
-            quizSummary.setVisible(true);
-            quizSummary.setText("NAME:  " + nameBox.getText() + "    LETTER GRADE:  " + quiz.getLetterGrade() + "      "
-                    + "NUMERICAL GRADE:  " + formatter.format(Quiz.getNumericalGrade()) + "%");
 
-            //display detailed quiz results(total questions asked, number correct, and number incorrect
-            quizDetail.setVisible(true);
-            quizDetail.setText("CORRECT:  " +  quiz.getNumRight() + "          INCORRECT:  "
-                    + (quiz.getTotalQuestions() - quiz.getNumRight()) + "           TOTAL:  " + quiz.getTotalQuestions());
-            noButton.isEnabled();
-            continueGame = false;
+            //display quiz results
+            JTextArea results = new JTextArea("Name:  " + nameBox.getText() + "            Grade:  " + quiz.getLetterGrade()
+                    + "        % Grade:  " + formatter.format(Quiz.getNumericalGrade()) + "%\nTotal Questions:  "
+                    + quiz.getTotalQuestions() + "        Correct:  " + quiz.getNumRight() + "        Incorrect:  " + (quiz.getTotalQuestions() - quiz.getNumRight()) );
+            add(results);
+
         }
     }
 
     //******************************************************************************************************************
     //instantiate new QuizFrame
-    
+
     public static void main(String[] args)
     {
         new QuizFrame();
